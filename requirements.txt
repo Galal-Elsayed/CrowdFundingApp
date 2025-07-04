@@ -1,4 +1,7 @@
-
-Django==5.2.3
+Django==5.2.4
 djangorestframework==3.16.0
+djangorestframework-simplejwt==5.5.0
+djoser==2.3.1
+social-auth-app-django==5.5.1
+psycopg2-binary==2.9.10
 django-cors-headers==4.7.0

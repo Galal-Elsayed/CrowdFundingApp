@@ -22,9 +22,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/', include('api.urls')),  # API endpoint
     path('', include('api.urls')),     # Serve React app at root (for production)
-    path('users/', include('users.urls')),
+    path('api/', include('djoser.urls')),
+    path('api/', include('djoser.urls.jwt')),
     path('projects/', include('projects.urls')),
     path('donations/', include('donations.urls')),
     path('categories/', include('categories.urls')),
-    path('comments/', include('comments.urls')),
 ]

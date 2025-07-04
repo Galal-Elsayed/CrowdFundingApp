@@ -44,10 +44,20 @@ INSTALLED_APPS = [
     'projects',
     'donations',
     'categories',
-    'comments',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+DJOSER = {
+    'USER_ID_FIELD': 'id',
+    'LOGIN_FIELD': 'username',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
