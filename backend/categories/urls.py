@@ -1,5 +1,16 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CategoryViewSet
 
+router = DefaultRouter()
+router.register(r'', CategoryViewSet)
 urlpatterns = [
-    # Add your user-related URL patterns here
+    path('', include(router.urls)),
 ]
+
+
+
+
+
+
+
