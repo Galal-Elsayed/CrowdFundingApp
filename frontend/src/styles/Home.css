@@ -1,0 +1,13 @@
+.home-container {
+    text-align: center;
+    margin: 100px;
+    color: #363535;
+    font-family: Arial;
+}
+
+.home-container h1 {
+    font-size: 36px;
+    color: #333; 
+    margin-bottom: 20px;
+    font-weight: bold;
+}
