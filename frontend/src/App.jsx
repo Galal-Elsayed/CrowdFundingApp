@@ -36,23 +36,38 @@ function App() {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/donations" element={<h1>Donations Page</h1>} />
-        <Route
-          path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
-        <Route path="/register" element={<Register />} />
-        <Route path="/create-project" element={<CreateProject />} />
-        <Route path="/edit-project/:id" element={<EditProject />} />
-        <Route path="/project/:id" element={<ProjectDetails />} />
-        <Route path="/profile" element={<h1>Profile Page</h1>} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-      </Routes>
-      <Footer />
+      <div
+        style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+      >
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <main
+          className="main"
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/donations" element={<h1>Donations Page</h1>} />
+            <Route
+              path="/login"
+              element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/create-project" element={<CreateProject />} />
+            <Route path="/edit-project/:id" element={<EditProject />} />
+            <Route path="/project/:id" element={<ProjectDetails />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

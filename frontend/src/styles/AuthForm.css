@@ -1,7 +1,7 @@
 .auth-form-container {
     width: 30%;
     min-width: 320px;
-    margin: 60px auto;
+    margin: 100px auto;
     background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 12px;
@@ -14,7 +14,7 @@
 .auth-form-container h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #0505ae;
+    color: #007bff;
     font-size: 24px;
     font-weight: bold;
 }

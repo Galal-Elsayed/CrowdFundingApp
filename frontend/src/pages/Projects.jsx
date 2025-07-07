@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getProjects } from '../services/projectService';
 import ProjectCard from '../components/ProjectCard';
+import '../styles/Home.css';
+
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -62,6 +64,7 @@ const Projects = () => {
       )}
     </div>
   );
+
 };
 
 export default Projects;

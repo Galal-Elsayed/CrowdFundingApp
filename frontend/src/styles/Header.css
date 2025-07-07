@@ -1,39 +1,141 @@
-.header {
-    background: #333;
-    color: #fff;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 15px;
+.navbar-outer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: transparent;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-.nav-container {
+.navbar-pill {
+    margin-top: 10px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    background: #fff;
+    border-radius: 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    padding: 0 32px;
+    min-height: 64px;
+    min-width: 700px;
+    max-width: 1100px;
+    width: auto;
+    gap: 24px;
+    position: relative;
 }
 
-.nav-links {
+.search-bar {
     display: flex;
     align-items: center;
+    flex: 1;
+    max-width: 220px;
+    position: relative;
+}
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bdbdbd;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+.search-bar input {
+    width: 110px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 24px;
+    padding: 10px 16px 10px 38px;
+    font-size: 16px;
+    outline: none;
+    background: #fafbfc;
+    transition: border 0.2s;
+    color: #222;
+    font-weight: 500;
+}
+.search-bar input:focus {
+    border: 1.5px solid #38ef7d;
+    background: #fff;
+}
+
+.navbar-logo {
+    flex: 1;
+    cursor: pointer;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #11998e;
+    letter-spacing: 2px;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .nav-link {
-    color: #fff;
-    margin-right: 15px;
+    color: #222;
     text-decoration: none;
+    transition: color 0.2s, box-shadow 0.3s, border 0.3s, background 0.2s;
+    font-size: 17px;
+    padding: 6px 18px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-weight: 500;
+    background: none;
 }
 
 .nav-link:hover {
-    text-decoration: underline;
+    color: #11998e;
+    border: 2px solid #11998e;
+    box-shadow: 0 2px 12px 0 rgba(56, 239, 125, 0.15);
+    background: #e6fff3;
 }
 
-.auth-section {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 10px;
+.login-btn {
+    background: #04b748;
+    white-space: nowrap;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 6px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(56, 239, 125, 0.10);
+}
+.login-btn:hover {
+    background: #11998e;
+    color: #fff;
 }
 
+
+.register-btn {
+  background: #007bff;
+  white-space: nowrap;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 6px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(56, 239, 125, 0.10);
+}
+.register-btn:hover {
+  background: #0056b3;
+  color: #fff;
+}
 .profile-icon {
     text-decoration: none;
     font-size: 30px;
@@ -41,10 +143,76 @@
 
 .logout-btn {
     background: transparent;
-    color: red;
+    color: #11998e;
     border: none;
     cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
 }
 .logout-btn:hover {
-    text-decoration: underline;
+    color: #c10000;
+}
+
+@media (max-width: 900px) {
+  .navbar-pill {
+    min-width: unset;
+    max-width: 95vw;
+    width: 95vw;
+    padding: 0 10px;
+    gap: 10px;
+  }
+  .navbar-logo {
+    font-size: 1.1rem;
+  }
+  .nav-link, .signin-btn {
+    font-size: 13px;
+    padding: 4px 10px;
+  }
+  .search-bar input {
+    width: 100px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-outer {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .navbar-pill {
+    flex-direction: column;
+    align-items: stretch;
+    min-width: unset;
+    max-width: 100vw;
+    width: 98vw;
+    padding: 8px 4px;
+    gap: 8px;
+    margin: 0 auto;
+  }
+  .navbar-logo {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  .nav-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    justify-content: center;
+  }
+  .nav-link, .signin-btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 0;
+    text-align: center;
+  }
+  .search-bar {
+    max-width: 100%;
+    margin-bottom: 4px;
+  }
+  .search-bar input {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 12px 8px 32px;
+  }
 }

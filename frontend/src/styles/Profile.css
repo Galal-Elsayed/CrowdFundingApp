@@ -1,0 +1,141 @@
+
+
+.profile-page-bg {
+  min-height: 100vh;
+  background: #f6f8fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 0 0; /* Only top padding */
+  box-sizing: border-box;
+  justify-content: flex-start;
+  
+}
+
+/* Footer always at the bottom */
+footer {
+  margin-top: auto;
+  width: 100%;
+}
+
+.profile-main {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 100px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  font-family: 'Inter', sans-serif;
+}
+
+.profile-card, .password-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 32px 24px;
+  width: 340px;
+  min-width: 260px;
+  box-sizing: border-box;
+}
+
+.profile-card h2, .password-card h2 {
+  font-size: larger;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.profile-card label, .password-card label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.profile-card input, .password-card input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.profile-card button, .password-card button {
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.profile-card button {
+  background: #1976d2;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.password-card button {
+  background: #388e3c;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.profile-message {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+.profile-message.success {
+  color: green;
+}
+
+.profile-message.error {
+  color: red;
+}
+
+.users-table-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 24px;
+  width: 90vw;
+  max-width: 900px;
+  margin-bottom: 32px;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.users-table th, .users-table td {
+  border: 1px solid #eee;
+  padding: 8px;
+  text-align: left;
+}
+
+.users-table th {
+  background: #f6f8fa;
+}
+
+.users-table tr:nth-child(even) {
+  background: #f6f8fa;
+}
+
+@media (max-width: 900px) {
+  .profile-main {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .users-table-container {
+    width: 98vw;
+    padding: 10px;
+  }
+} 
