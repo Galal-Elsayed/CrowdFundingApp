@@ -11,7 +11,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     const handleLogout = () => {
         removeToken();
         setIsLoggedIn(false);
-        navigate('/login');
+        navigate('/');
     };
 
     const handleSearch = (e) => {
@@ -26,7 +26,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                     <FaSearch className="search-icon" />
                     <input
                         type="text"
-                        placeholder="Search for projects"
+                        placeholder="Search"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                     />
@@ -36,8 +36,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                     <Link to="/" className="nav-link">Home</Link>
                     <Link to="/projects" className="nav-link">Projects</Link>
                     <Link to="/donations" className="nav-link">Donations</Link>
+                    {/* Sign in button and register button, if logged in, show profile icon and logout button and remove sign in and register buttons*/}
                     {!isLoggedIn ? (
-                        <button className="signin-btn" onClick={() => navigate('/login')}>Sign in</button>
+                        <>
+                            <button className="login-btn" onClick={() => navigate('/login')}>Sign in</button>
+                            <button className="register-btn" onClick={() => navigate('/register')}>Register</button>
+                        </>
                     ) : (
                         <>
                             <Link to="/profile">

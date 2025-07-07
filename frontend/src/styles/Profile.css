@@ -1,7 +1,7 @@
 
 
 .profile-page-bg {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   background: #f6f8fa;
   display: flex;
   flex-direction: column;
@@ -9,18 +9,7 @@
   padding: 2rem 0 0 0; /* Only top padding */
   box-sizing: border-box;
   justify-content: flex-start;
-}
-
-body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.app-root {
-}
-
-main {
+  
 }
 
 /* Footer always at the bottom */
@@ -34,8 +23,10 @@ footer {
   gap: 32px;
   justify-content: center;
   align-items: flex-start;
+  margin-top: 100px;
   margin-bottom: 32px;
   flex-wrap: wrap;
+  font-family: 'Inter', sans-serif;
 }
 
 .profile-card, .password-card {
@@ -49,6 +40,9 @@ footer {
 }
 
 .profile-card h2, .password-card h2 {
+  font-size: larger;
+  font-weight: 600;
+  text-transform: uppercase;
   text-align: center;
   margin-bottom: 24px;
 }
