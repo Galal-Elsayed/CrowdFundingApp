@@ -26,7 +26,7 @@ class CustomUserSerializer(UserSerializer):
         model = CustomUser
         fields = [
             'id', 'email', 'first_name', 'last_name', 
-            'phone', 'date_joined' 
+            'phone', 'date_joined', 'is_superuser'
         ]
         # Protect fields from modification
         read_only_fields = ['id', 'date_joined']
