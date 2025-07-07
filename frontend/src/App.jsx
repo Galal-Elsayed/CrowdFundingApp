@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { getToken } from './utils/tokenStorage';
+import Profile from './pages/Profile';
 import axios from 'axios';
 
 function App() {
@@ -31,17 +32,21 @@ function App() {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<h1>Projects Page</h1>} />
-        <Route path="/donations" element={<h1>Donations Page</h1>} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<h1>Profile Page</h1>} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-      </Routes>
-      <Footer />
+      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <main className="main" style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<h1>Projects Page</h1>} />
+            <Route path="/donations" element={<h1>Donations Page</h1>} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

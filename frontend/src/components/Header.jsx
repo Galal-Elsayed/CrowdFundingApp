@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { removeToken } from '../utils/tokenStorage';
-import { FaUserCircle } from 'react-icons/fa';
-import '../styles/Header.css';
+import { FaUserCircle, FaSearch } from 'react-icons/fa';
+import { useState } from 'react';
+import '../styles/Header.css'
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
 
     const handleLogout = () => {
         removeToken();
@@ -12,22 +14,30 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
         navigate('/login');
     };
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        // Implement search logic or navigation here
+    };
+
     return (
-        <header className="header">
-            <nav className="nav-container">
-                
-                <div className="nav-links">
-                    <Link to="/" className="nav-link">Crowdfunding</Link>
+        <div className="navbar-outer">
+            <nav className="navbar-pill">
+                <form className="search-bar" onSubmit={handleSearch}>
+                    <FaSearch className="search-icon" />
+                    <input
+                        type="text"
+                        placeholder="Search for projects"
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                </form>
+                <div className="navbar-logo" onClick={()=> navigate('/')}>CROWDFUND</div>
+                <div className="nav-group">
+                    <Link to="/" className="nav-link">Home</Link>
                     <Link to="/projects" className="nav-link">Projects</Link>
                     <Link to="/donations" className="nav-link">Donations</Link>
-                </div>
-
-                <div className="auth-section">
                     {!isLoggedIn ? (
-                        <>
-                            <Link to="/register" className="nav-link">Register</Link>
-                            <Link to="/login" className="nav-link">Login</Link>
-                        </>
+                        <button className="signin-btn" onClick={() => navigate('/login')}>Sign in</button>
                     ) : (
                         <>
                             <Link to="/profile">
@@ -40,7 +50,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                     )}
                 </div>
             </nav>
-        </header>
+        </div>
     );
 };
 
