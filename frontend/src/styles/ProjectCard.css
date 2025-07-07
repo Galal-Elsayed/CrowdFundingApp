@@ -1,4 +1,5 @@
 .project-card {
+   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
@@ -62,3 +63,23 @@
   font-size: 12px;
   color: #888;
 }
+
+.project-card {
+  transition: transform 0.2s ease;
+}
+
+.project-card:active {
+  transform: scale(1.03);
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+}
+
+.project-card .info-value {
+  background-color: #B1AB86;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+

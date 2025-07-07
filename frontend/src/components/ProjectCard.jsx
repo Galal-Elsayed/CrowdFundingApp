@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/ProjectCard.css';
 
 const ProjectCard = ({ project }) => {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -17,6 +19,13 @@ const ProjectCard = ({ project }) => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   };
+
+  const truncateDescription = (text, maxLength = 100) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  const shouldShowReadMore = project.description && project.description.length > 100;
 
   return (
     <div className="project-card">
@@ -35,7 +44,22 @@ const ProjectCard = ({ project }) => {
 
       <h3>{project.title}</h3>
 
-      <p>{project.description}</p>
+      <div className="description-container">
+        <p>
+          {isDescriptionExpanded 
+            ? project.description 
+            : truncateDescription(project.description)
+          }
+        </p>
+        {shouldShowReadMore && (
+          <button 
+            className="read-more-btn"
+            onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+          >
+            {isDescriptionExpanded ? 'Read less' : 'Read more'}
+          </button>
+        )}
+      </div>
 
       <div className="info-section">
         <div className="info-row">
