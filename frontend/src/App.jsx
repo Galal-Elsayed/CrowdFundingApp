@@ -1,14 +1,17 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Projects from './pages/Projects';
-import ProtectedRoute from './components/ProtectedRoute'; 
-import { getToken } from './utils/tokenStorage';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Projects from "./pages/Projects";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { getToken } from "./utils/tokenStorage";
+import axios from "axios";
+import ProjectDetails from "./pages/ProjectDetails";
+import CreateProject from "./pages/CreateProject";
+import EditProject from "./pages/EditProject";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,8 +26,8 @@ function App() {
 
   const fetchProfile = async (token) => {
     try {
-      await axios.get('http://127.0.0.1:8000/auth/users/me/', {
-        headers: { Authorization: `Bearer ${token}` }
+      await axios.get("http://127.0.0.1:8000/auth/users/me/", {
+        headers: { Authorization: `Bearer ${token}` },
       });
     } catch (err) {
       console.error(err);
@@ -38,8 +41,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/donations" element={<h1>Donations Page</h1>} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Route path="/register" element={<Register />} />
+        <Route path="/create-project" element={<CreateProject />} />
+        <Route path="/edit-project/:id" element={<EditProject />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="/profile" element={<h1>Profile Page</h1>} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
