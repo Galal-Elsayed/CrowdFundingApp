@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Projects from './pages/Projects';
+import Projects from './pages/Projects'; 
 import ProtectedRoute from './components/ProtectedRoute'; 
 import { getToken } from './utils/tokenStorage';
 import Profile from './pages/Profile';
@@ -40,7 +40,7 @@ function App() {
         <main className="main" style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<h1>Projects Page</h1>} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/donations" element={<h1>Donations Page</h1>} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="/register" element={<Register />} />
