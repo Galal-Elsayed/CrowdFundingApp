@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Projects from './pages/Projects';
+import ProtectedRoute from './components/ProtectedRoute'; 
 import { getToken } from './utils/tokenStorage';
 import axios from 'axios';
 
@@ -34,7 +36,7 @@ function App() {
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<h1>Projects Page</h1>} />
+        <Route path="/projects" element={<Projects />} />
         <Route path="/donations" element={<h1>Donations Page</h1>} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />

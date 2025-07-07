@@ -10,6 +10,7 @@ class Project(models.Model):
     end_date = models.DateTimeField()
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='projects/', null=True, blank=True)
 
     def __str__(self):
         return self.title
