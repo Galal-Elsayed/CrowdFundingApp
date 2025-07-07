@@ -3,7 +3,6 @@ import { getToken } from '../utils/tokenStorage';
 
 const API_URL = 'http://127.0.0.1:8000/projects/';
 
-// إعداد axios instance مع الـ token
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -11,7 +10,6 @@ const apiClient = axios.create({
   },
 });
 
-// إضافة الـ token للـ requests تلقائياً
 apiClient.interceptors.request.use(
   (config) => {
     const token = getToken();
