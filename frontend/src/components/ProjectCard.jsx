@@ -57,10 +57,6 @@ const ProjectCard = ({ project }) => {
       </div>
 
       <div className="info-section">
-        <h3>{project.title}</h3>
-
-        <p>{project.description}</p>
-
         <div className="info-section">
           <div className="info-row">
             <span className="info-label">Goal:</span>

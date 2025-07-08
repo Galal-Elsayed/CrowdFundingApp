@@ -7,6 +7,7 @@ import "../styles/Header.css";
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [showSearchInput, setShowSearchInput] = useState(false);
 
   const handleLogout = () => {
     removeToken();
@@ -21,20 +22,22 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Implement search logic or navigation here
-  };
+      navigate(`/projects?search=${encodeURIComponent(search.trim())}`);
+      setSearch("");
+      setShowSearchInput(false)  };
 
   return (
     <div className="navbar-outer">
       <nav className="navbar-pill">
         <form className="search-bar" onSubmit={handleSearch}>
-          <FaSearch className="search-icon" />
+          {/* <FaSearch className="search-icon" /> */}
           <input
             type="text"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+            <FaSearch className="search-icon" />
         </form>
         <div className="navbar-logo" onClick={() => navigate("/")}>
           CROWDFUND
