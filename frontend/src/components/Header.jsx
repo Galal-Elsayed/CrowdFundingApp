@@ -1,61 +1,103 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { removeToken } from '../utils/tokenStorage';
-import { FaUserCircle, FaSearch } from 'react-icons/fa';
-import { useState } from 'react';
-import '../styles/Header.css'
+import { Link, useNavigate } from "react-router-dom";
+import { removeToken } from "../utils/tokenStorage";
+import { FaUserCircle, FaSearch } from "react-icons/fa";
+import { useState } from "react";
+import "../styles/Header.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
-    const navigate = useNavigate();
-    const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
-    const handleLogout = () => {
-        removeToken();
-        setIsLoggedIn(false);
-        navigate('/');
-    };
+  const handleLogout = () => {
+    removeToken();
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        // Implement search logic or navigation here
-    };
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value) navigate(value);
+  };
 
-    return (
-        <div className="navbar-outer">
-            <nav className="navbar-pill">
-                <form className="search-bar" onSubmit={handleSearch}>
-                    <FaSearch className="search-icon" />
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                    />
-                </form>
-                <div className="navbar-logo" onClick={()=> navigate('/')}>CROWDFUND</div>
-                <div className="nav-group">
-                    <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/projects" className="nav-link">Projects</Link>
-                    <Link to="/donations" className="nav-link">Donations</Link>
-                    {/* Sign in button and register button, if logged in, show profile icon and logout button and remove sign in and register buttons*/}
-                    {!isLoggedIn ? (
-                        <>
-                            <button className="login-btn" onClick={() => navigate('/login')}>Sign in</button>
-                            <button className="register-btn" onClick={() => navigate('/register')}>Register</button>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/profile">
-                                <FaUserCircle className="profile-icon" />
-                            </Link>
-                            <button onClick={handleLogout} className="logout-btn">
-                                Logout
-                            </button>
-                        </>
-                    )}
-                </div>
-            </nav>
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Implement search logic or navigation here
+  };
+
+  return (
+    <div className="navbar-outer">
+      <nav className="navbar-pill">
+        <form className="search-bar" onSubmit={handleSearch}>
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
+        <div className="navbar-logo" onClick={() => navigate("/")}>
+          CROWDFUND
         </div>
-    );
+        <div className="nav-group">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+          <div class="dropdown">
+            <a
+              class="btn btn-secondary dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Select an option
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="/projects">
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/create-project">
+                  Add project
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <Link to="/donations" className="nav-link">
+            Donations
+          </Link>
+          {/* Sign in button and register button, if logged in, show profile icon and logout button and remove sign in and register buttons*/}
+          {!isLoggedIn ? (
+            <>
+              <button className="login-btn" onClick={() => navigate("/login")}>
+                Sign in
+              </button>
+              <button
+                className="register-btn"
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/profile">
+                <FaUserCircle className="profile-icon" />
+              </Link>
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </nav>
+    </div>
+  );
 };
 
 export default Header;

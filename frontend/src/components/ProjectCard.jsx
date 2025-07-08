@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import '../styles/ProjectCard.css';
+import React, { useState } from "react";
+import "../styles/ProjectCard.css";
 
 const ProjectCard = ({ project }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  
+
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -22,23 +22,19 @@ const ProjectCard = ({ project }) => {
 
   const truncateDescription = (text, maxLength = 100) => {
     if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+    return text.substring(0, maxLength) + "...";
   };
 
-  const shouldShowReadMore = project.description && project.description.length > 100;
+  const shouldShowReadMore =
+    project.description && project.description.length > 100;
 
   return (
     <div className="project-card">
       <div className="image-container">
         {project.image ? (
-          <img
-            src={`${project.image}`}
-            alt={project.title}
-          />
+          <img src={`${project.image}`} alt={project.title} />
         ) : (
-          <span style={{ color: "#666", fontSize: "14px" }}>
-            Project Image
-          </span>
+          <span style={{ color: "#666", fontSize: "14px" }}>Project Image</span>
         )}
       </div>
 
@@ -46,38 +42,44 @@ const ProjectCard = ({ project }) => {
 
       <div className="description-container">
         <p>
-          {isDescriptionExpanded 
-            ? project.description 
-            : truncateDescription(project.description)
-          }
+          {isDescriptionExpanded
+            ? project.description
+            : truncateDescription(project.description)}
         </p>
         {shouldShowReadMore && (
-          <button 
+          <button
             className="read-more-btn"
             onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
           >
-            {isDescriptionExpanded ? 'Read less' : 'Read more'}
+            {isDescriptionExpanded ? "Read less" : "Read more"}
           </button>
         )}
       </div>
 
       <div className="info-section">
-        <div className="info-row">
-          <span className="info-label">Goal:</span>
-          <span className="info-value">
-            {parseFloat(project.target_amount).toLocaleString()} EGP
-          </span>
-        </div>
+        <h3>{project.title}</h3>
 
-        <div className="info-row">
-          <span className="info-label">Ends in:</span>
-          <span className="info-value">
-            {getDaysRemaining(project.end_date)} days
-          </span>
-        </div>
+        <p>{project.description}</p>
 
-        <div className="date-range">
-          From {formatDate(project.start_date)} to {formatDate(project.end_date)}
+        <div className="info-section">
+          <div className="info-row">
+            <span className="info-label">Goal:</span>
+            <span className="info-value">
+              {parseFloat(project.target_amount).toLocaleString()} EGP
+            </span>
+          </div>
+
+          <div className="info-row">
+            <span className="info-label">Ends in:</span>
+            <span className="info-value">
+              {getDaysRemaining(project.end_date)} days
+            </span>
+          </div>
+
+          <div className="date-range">
+            From {formatDate(project.start_date)} to{" "}
+            {formatDate(project.end_date)}
+          </div>
         </div>
       </div>
     </div>

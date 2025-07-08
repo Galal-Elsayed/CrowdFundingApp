@@ -1,123 +1,150 @@
 .navbar-outer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    background: transparent;
-    margin-top: 0;
-    margin-bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: transparent;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Style the dropdown menu */
+.styled-select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  appearance: none; /* removes default arrow in some browsers */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+/* Style the dropdown arrow (using background image or custom div) */
+.styled-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Optional: Style individual options */
+.styled-select option {
+  padding: 10px;
+  font-weight: normal;
 }
 
 .navbar-pill {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 40px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-    padding: 0 32px;
-    min-height: 64px;
-    min-width: 700px;
-    max-width: 1100px;
-    width: auto;
-    gap: 24px;
-    position: relative;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 0 32px;
+  min-height: 64px;
+  min-width: 700px;
+  max-width: 1100px;
+  width: auto;
+  gap: 24px;
+  position: relative;
 }
 
 .search-bar {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    max-width: 220px;
-    position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 220px;
+  position: relative;
 }
 .search-icon {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #bdbdbd;
-    font-size: 1.1rem;
-    pointer-events: none;
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bdbdbd;
+  font-size: 1.1rem;
+  pointer-events: none;
 }
 .search-bar input {
-    width: 110px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 24px;
-    padding: 10px 16px 10px 38px;
-    font-size: 16px;
-    outline: none;
-    background: #fafbfc;
-    transition: border 0.2s;
-    color: #222;
-    font-weight: 500;
+  width: 110px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 10px 16px 10px 38px;
+  font-size: 16px;
+  outline: none;
+  background: #fafbfc;
+  transition: border 0.2s;
+  color: #222;
+  font-weight: 500;
 }
 .search-bar input:focus {
-    border: 1.5px solid #38ef7d;
-    background: #fff;
+  border: 1.5px solid #38ef7d;
+  background: #fff;
 }
 
 .navbar-logo {
-    flex: 1;
-    cursor: pointer;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #11998e;
-    letter-spacing: 2px;
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+  flex: 1;
+  cursor: pointer;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #11998e;
+  letter-spacing: 2px;
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
-
 .nav-group {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex: 1;
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .nav-link {
-    color: #222;
-    text-decoration: none;
-    transition: color 0.2s, box-shadow 0.3s, border 0.3s, background 0.2s;
-    font-size: 17px;
-    padding: 6px 18px;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    font-weight: 500;
-    background: none;
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s, box-shadow 0.3s, border 0.3s, background 0.2s;
+  font-size: 17px;
+  padding: 6px 18px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-weight: 500;
+  background: none;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
-    color: #11998e;
-    border: 2px solid #11998e;
-    box-shadow: 0 2px 12px 0 rgba(56, 239, 125, 0.15);
-    background: #e6fff3;
+  color: #11998e;
+  border: 2px solid #11998e;
+  box-shadow: 0 2px 12px 0 rgba(56, 239, 125, 0.15);
+  background: #e6fff3;
 }
 
 .login-btn {
-    background: #04b748;
-    white-space: nowrap;
-    color: #fff;
-    border: none;
-    border-radius: 24px;
-    padding: 6px 24px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(56, 239, 125, 0.10);
+  background: #04b748;
+  white-space: nowrap;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 6px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(56, 239, 125, 0.1);
 }
 .login-btn:hover {
-    background: #11998e;
-    color: #fff;
+  background: #11998e;
+  color: #fff;
 }
-
 
 .register-btn {
   background: #007bff;
@@ -130,27 +157,27 @@
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(56, 239, 125, 0.10);
+  box-shadow: 0 2px 8px rgba(56, 239, 125, 0.1);
 }
 .register-btn:hover {
   background: #0056b3;
   color: #fff;
 }
 .profile-icon {
-    text-decoration: none;
-    font-size: 30px;
+  text-decoration: none;
+  font-size: 30px;
 }
 
 .logout-btn {
-    background: transparent;
-    color: #11998e;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: color 0.2s;
+  background: transparent;
+  color: #11998e;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.2s;
 }
 .logout-btn:hover {
-    color: #c10000;
+  color: #c10000;
 }
 
 @media (max-width: 900px) {
@@ -164,7 +191,8 @@
   .navbar-logo {
     font-size: 1.1rem;
   }
-  .nav-link, .signin-btn {
+  .nav-link,
+  .signin-btn {
     font-size: 13px;
     padding: 4px 10px;
   }
@@ -200,7 +228,8 @@
     gap: 4px;
     justify-content: center;
   }
-  .nav-link, .signin-btn {
+  .nav-link,
+  .signin-btn {
     width: 100%;
     font-size: 12px;
     padding: 6px 0;

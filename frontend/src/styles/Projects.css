@@ -1,0 +1,81 @@
+.project-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40vw;
+  margin: 40px auto;
+  margin-top: 7rem;
+  padding: 24px;
+  background-color: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.btn {
+  padding: 10px;
+  background-color: #11998e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #0e7c6f;
+}
+
+.project-title {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.project-details .text h3 {
+  margin: 0.5rem 0;
+  background-color: #11998e;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  width: max-content;
+  padding: 0.4rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+img {
+  width: 40vw;
+  max-height: 435px;
+}
+
+.project-meta p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.project-image-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.project-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.loading-message,
+.error-message {
+  text-align: center;
+  font-size: 1rem;
+  color: rgb(206, 36, 36);
+}
