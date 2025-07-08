@@ -11,34 +11,6 @@
   margin-bottom: 0;
 }
 
-/* Style the dropdown menu */
-.styled-select {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
-  background-color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  appearance: none; /* removes default arrow in some browsers */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-}
-
-/* Style the dropdown arrow (using background image or custom div) */
-.styled-select-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-/* Optional: Style individual options */
-.styled-select option {
-  padding: 10px;
-  font-weight: normal;
-}
-
 .navbar-pill {
   margin-top: 10px;
   display: flex;
@@ -49,7 +21,7 @@
   padding: 0 32px;
   min-height: 64px;
   min-width: 700px;
-  max-width: 1100px;
+  /* max-width: 1100px; */
   width: auto;
   gap: 24px;
   position: relative;
@@ -213,8 +185,7 @@
     min-width: unset;
     max-width: 100vw;
     width: 98vw;
-    padding: 8px 4px;
-    gap: 8px;
+    padding: 1rem;
     margin: 0 auto;
   }
   .navbar-logo {
@@ -224,7 +195,7 @@
   }
   .nav-group {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 4px;
     justify-content: center;
   }

@@ -10,6 +10,16 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.e-form-container {
+  background: #fff;
+  padding: 2rem 4rem;
+  border-radius: 1rem;
+  width: 45vw;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  margin-top: 7rem;
+  margin-bottom: 5rem;
+}
+
 .form-input,
 .form-textarea {
   width: 100%;
@@ -39,4 +49,50 @@
 
 .form-button:hover {
   background-color: #0c746b;
+}
+
+@media screen and (max-width: 750px) {
+  .e-form-container {
+    width: 70vw;
+  }
+
+  .form-button {
+    padding: 5px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input,
+  textarea {
+    width: 50vw !important;
+  }
+
+  .icons p {
+    font-size: 1.8ch;
+  }
+  .icons svg {
+    font-size: 1rem;
+  }
+
+  .icons .social {
+    gap: 5px !important;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .icons {
+    width: 200px !important;
+  }
+  .icons .social {
+    gap: 5px !important;
+  }
+
+  .icons p {
+    font-size: 1.3ch;
+  }
 }

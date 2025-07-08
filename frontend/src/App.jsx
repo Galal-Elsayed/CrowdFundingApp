@@ -9,12 +9,15 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Projects from "./pages/Projects";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Profile from "./pages/Profile";
 import { getToken } from "./utils/tokenStorage";
 import axios from "axios";
 import ProjectDetails from "./pages/ProjectDetails";
 import CreateProject from "./pages/CreateProject";
 import EditProject from "./pages/EditProject";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,9 +68,11 @@ function App() {
             <Route path="/create-project" element={<CreateProject />} />
             <Route path="/edit-project/:id" element={<EditProject />} />
             <Route path="/project/:id" element={<ProjectDetails />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
+          <ToastContainer position="top-right" autoClose={3000} />
         </main>
         <Footer />
       </div>
