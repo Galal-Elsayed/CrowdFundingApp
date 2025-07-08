@@ -7,8 +7,8 @@ const Home = () => {
         <main className="home-main">
             <div className="home-container">
                 <h1 className="home-title">Your home<br/>for help</h1>
-                <button className="start-btn" onClick={()=> navigate('/projects')}>Start fundraising</button>
-                <button className="start-btn" onClick={()=> navigate('/donations')}>Donate Now!</button>
+                <button className="fund-btn" onClick={()=> navigate('/projects')}>Start fundraising</button>
+                <button className="donate-btn" onClick={()=> navigate('/donations')}>Donate Now!</button>
 
             </div>
         </main>
