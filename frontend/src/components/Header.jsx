@@ -43,26 +43,24 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           <Link to="/" className="nav-link">
             Home
           </Link>
-          <div class="dropdown">
-            <a
-              class="btn btn-secondary dropdown-toggle"
-              href="#"
-              role="button"
+          <div className="dropdown">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Select an option
-            </a>
-
-            <ul class="dropdown-menu">
+              Campaigns
+            </button>
+            <ul className="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="/projects">
-                  Projects
+                <a className="dropdown-item" href="/projects">
+                  All Campaigns
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="/create-project">
-                  Add project
+                <a className="dropdown-item" href="/create-project">
+                  Add Campaign
                 </a>
               </li>
             </ul>
