@@ -35,7 +35,7 @@ function ProjectDetails() {
       {project.image && <img src={`${project.image}`} alt={project.title} />}
       <div className="text">
         <h3>Project Title</h3>
-        <h2>{project.title}</h2>
+        <p>{project.title}</p>
         <h3>Project Description</h3>
         <p>{project.description}</p>
         <h3>Target Amount</h3>
@@ -44,7 +44,9 @@ function ProjectDetails() {
         <p> {project.start_date}</p>
         <h3>End Date</h3>
         <p> {project.end_date}</p>
-        <Link to={`/edit-project/${project.id}`}>Edit Project</Link>
+        <Link className="btn" to={`/edit-project/${project.id}`}>
+          Edit Project
+        </Link>
       </div>
     </div>
   );

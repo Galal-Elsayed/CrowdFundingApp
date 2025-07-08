@@ -5,7 +5,6 @@ import Form from "../components/Form";
 
 const EditProject = () => {
   const { id } = useParams();
-  console.log("ID from useParams:", id, typeof id);
   const navigate = useNavigate();
   const [initialData, setInitialData] = useState(null);
 

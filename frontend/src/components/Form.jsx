@@ -33,21 +33,25 @@ function ProjectForm({ initialData = {}, onSubmit }) {
       await onSubmit(formData);
       navigate("/");
     } catch (error) {
-      console.log(error.response?.data);
+      setErrors(error.response?.data);
     }
   };
 
   useEffect(() => {
+    if (!initialData) return;
+
     const normalizeDate = (date) => {
       if (!date) return "";
       return new Date(date).toISOString().split("T")[0];
     };
+
     setFormData((prev) => ({
       ...prev,
       ...initialData,
       start_date: normalizeDate(initialData.start_date),
       end_date: normalizeDate(initialData.end_date),
     }));
+
     const fetchData = async () => {
       try {
         const data = await fetchCategories();
@@ -58,7 +62,7 @@ function ProjectForm({ initialData = {}, onSubmit }) {
     };
 
     fetchData();
-  }, [initialData]);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
@@ -121,14 +125,16 @@ function ProjectForm({ initialData = {}, onSubmit }) {
         onChange={handleChange}
       >
         <option value="">Select Category</option>
-        {categories.map((cat) => (
+        {categories?.map((cat) => (
           <option key={cat.id} value={cat.id}>
             {cat.name}
           </option>
         ))}
       </select>
 
-      <button type="submit">Save</button>
+      <button className="form-button" type="submit">
+        Save
+      </button>
     </form>
   );
 }

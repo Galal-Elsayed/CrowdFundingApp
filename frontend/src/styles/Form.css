@@ -1,6 +1,7 @@
 .form-container {
   width: 45vw;
   margin: 50px auto;
+  margin-top: 7rem;
   padding: 20px;
   background-color: #fefefe;
   border: 1px solid #ccc;
@@ -27,7 +28,7 @@
 
 .form-button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #11998e;
   color: white;
   font-weight: bold;
   border: none;
@@ -37,5 +38,5 @@
 }
 
 .form-button:hover {
-  background-color: #0056b3;
+  background-color: #0c746b;
 }

@@ -57,13 +57,6 @@ const ProjectCard = ({ project }) => {
       </div>
 
       <div className="info-section">
-        <div className="info-row">
-          <span className="info-label">Goal:</span>
-          <span className="info-value">
-            {parseFloat(project.target_amount).toLocaleString()} EGP
-          </span>
-        </div>
-
         <h3>{project.title}</h3>
 
         <p>{project.description}</p>

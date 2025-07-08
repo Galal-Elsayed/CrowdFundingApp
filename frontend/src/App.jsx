@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -7,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Projects from "./pages/Projects";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 import { getToken } from "./utils/tokenStorage";
 import axios from "axios";
 import ProjectDetails from "./pages/ProjectDetails";

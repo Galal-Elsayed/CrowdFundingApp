@@ -14,6 +14,11 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     navigate("/");
   };
 
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value) navigate(value);
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     // Implement search logic or navigation here
@@ -38,14 +43,33 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           <Link to="/" className="nav-link">
             Home
           </Link>
-          <Link to="/projects" className="nav-link">
-            Projects
-          </Link>
+          <div class="dropdown">
+            <a
+              class="btn btn-secondary dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Select an option
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="/projects">
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/create-project">
+                  Add project
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <Link to="/donations" className="nav-link">
             Donations
-          </Link>
-          <Link to="/create-project" className="nav-link">
-            Create a project
           </Link>
           {/* Sign in button and register button, if logged in, show profile icon and logout button and remove sign in and register buttons*/}
           {!isLoggedIn ? (

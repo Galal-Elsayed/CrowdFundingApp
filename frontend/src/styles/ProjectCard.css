@@ -1,11 +1,16 @@
 .project-card {
-   background-color: #fff;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
   margin: 8px;
   max-width: 300px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }
 
 .project-card .image-container {
@@ -77,9 +82,8 @@
 }
 
 .project-card .info-value {
-  background-color: #B1AB86;
+  background-color: #b1ab86;
   color: #fff;
   padding: 4px 8px;
   border-radius: 4px;
 }
-
