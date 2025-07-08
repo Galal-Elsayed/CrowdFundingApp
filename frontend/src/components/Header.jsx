@@ -69,6 +69,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           <Link to="/donations" className="nav-link">
             Donations
           </Link>
+          <Link to="/contact-us" className="nav-link">
+            Contact
+          </Link>
           {/* Sign in button and register button, if logged in, show profile icon and logout button and remove sign in and register buttons*/}
           {!isLoggedIn ? (
             <>
