@@ -14,7 +14,7 @@ export async function getAllUsers() {
     const res = await fetch(`${API_BASE}/users/`, {
         headers: { 'Authorization': `Bearer ${getToken()}` }
     });
-    if (!res.ok) throw new Error('Failed to fetch users');
+    if (!res.ok) throw new Error('You are not superuser, so you can not fetch users');
     return res.json();
 }
 

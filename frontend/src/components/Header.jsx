@@ -1,13 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { removeToken } from "../utils/tokenStorage";
-import { FaUserCircle, FaSearch } from "react-icons/fa";
+import { FaUserCircle, FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import "../styles/Header.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [showSearchInput, setShowSearchInput] = useState(false);
+  const [showSearchOverlay, setShowSearchOverlay] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     removeToken();
@@ -15,37 +16,45 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     navigate("/");
   };
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    if (value) navigate(value);
-  };
-
   const handleSearch = (e) => {
     e.preventDefault();
+    if (search.trim()) {
       navigate(`/projects?search=${encodeURIComponent(search.trim())}`);
       setSearch("");
-      setShowSearchInput(false)  };
+      setShowSearchOverlay(false);
+    }
+  };
+
+  // Close menu on navigation
+  const handleNavClick = (to) => {
+    navigate(to);
+    setMenuOpen(false);
+  };
 
   return (
     <div className="navbar-outer">
       <nav className="navbar-pill">
-        <form className="search-bar" onSubmit={handleSearch}>
-          {/* <FaSearch className="search-icon" /> */}
-          <input
-            type="text"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-            <FaSearch className="search-icon" />
-        </form>
-        <div className="navbar-logo" onClick={() => navigate("/")}>
-          CROWDFUND
-        </div>
-        <div className="nav-group">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
+        {/* Burger icon for mobile */}
+        <button
+          className="burger-menu"
+          aria-label="Toggle navigation menu"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
+        </button>
+        {/* Logo */}
+        <div className="navbar-logo" onClick={() => handleNavClick("/")}>CROWDFUND</div>
+        {/* Search icon (always visible) */}
+        <button
+          className="search-icon-btn"
+          aria-label="Open search"
+          onClick={() => setShowSearchOverlay(true)}
+        >
+          <FaSearch size={20} />
+        </button>
+        {/* Nav links (desktop or mobile) */}
+        <div className={`nav-group${menuOpen ? " open" : ""}`}>
+          <Link to="/" className="nav-link" onClick={() => handleNavClick("/")}>Home</Link>
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -61,44 +70,45 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                   All Campaigns
                 </a>
               </li>
-              <li>
-                <a className="dropdown-item" href="/create-project">
-                  Add Campaign
-                </a>
-              </li>
+              {isLoggedIn && (
+                <li>
+                  <a className="dropdown-item" href="/create-project">
+                    Add campaign
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
-
-          <Link to="/donations" className="nav-link">
-            Donations
-          </Link>
-          <Link to="/contact-us" className="nav-link">
-            Contact
-          </Link>
-          {/* Sign in button and register button, if logged in, show profile icon and logout button and remove sign in and register buttons*/}
+          <Link to="/donations" className="nav-link" onClick={() => handleNavClick("/donations")}>Donations</Link>
+          <Link to="/contact-us" className="nav-link" onClick={() => handleNavClick("/contact-us")}>Contact</Link>
           {!isLoggedIn ? (
             <>
-              <button className="login-btn" onClick={() => navigate("/login")}>
-                Sign in
-              </button>
-              <button
-                className="register-btn"
-                onClick={() => navigate("/register")}
-              >
-                Register
-              </button>
+              <button className="login-btn" onClick={() => handleNavClick("/login")}>Sign in</button>
+              <button className="register-btn" onClick={() => handleNavClick("/register")}>Register</button>
             </>
           ) : (
             <>
-              <Link to="/profile">
-                <FaUserCircle className="profile-icon" />
-              </Link>
-              <button onClick={handleLogout} className="logout-btn">
-                Logout
-              </button>
+              <Link to="/profile" onClick={() => handleNavClick("/profile")}> <FaUserCircle className="profile-icon" /> </Link>
+              <button onClick={handleLogout} className="logout-btn">Logout</button>
             </>
           )}
         </div>
+        {/* Search overlay */}
+        {showSearchOverlay && (
+          <div className="search-overlay" onClick={() => setShowSearchOverlay(false)}>
+            <form className="search-overlay-form" onSubmit={handleSearch} onClick={e => e.stopPropagation()}>
+              <input
+                type="text"
+                className="search-overlay-input"
+                placeholder="Search..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                autoFocus
+              />
+              <button type="submit" className="search-overlay-btn"><FaSearch /></button>
+            </form>
+          </div>
+        )}
       </nav>
     </div>
   );

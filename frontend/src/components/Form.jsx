@@ -66,7 +66,9 @@ function ProjectForm({ initialData = {}, onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <label htmlFor="title">Title</label>
       <input
+        id="title"
         name="title"
         value={formData.title}
         onChange={handleChange}
@@ -75,7 +77,9 @@ function ProjectForm({ initialData = {}, onSubmit }) {
       />
       {errors.title && <p className="error-message">{errors.title[0]}</p>}
 
+      <label htmlFor="description">Description</label>
       <textarea
+        id="description"
         name="description"
         value={formData.description}
         onChange={handleChange}
@@ -86,7 +90,9 @@ function ProjectForm({ initialData = {}, onSubmit }) {
         <p className="error-message">{errors.description[0]}</p>
       )}
 
+      <label htmlFor="target_amount">Target Amount</label>
       <input
+        id="target_amount"
         name="target_amount"
         type="number"
         value={formData.target_amount}
@@ -95,14 +101,19 @@ function ProjectForm({ initialData = {}, onSubmit }) {
         placeholder="Target Amount"
       />
 
+      <label htmlFor="start_date">Start Date</label>
       <input
+        id="start_date"
         name="start_date"
         type="date"
         className="form-input"
         value={formData.start_date}
         onChange={handleChange}
       />
+
+      <label htmlFor="end_date">End Date</label>
       <input
+        id="end_date"
         name="end_date"
         type="date"
         className="form-input"
@@ -110,7 +121,9 @@ function ProjectForm({ initialData = {}, onSubmit }) {
         onChange={handleChange}
       />
 
+      <label htmlFor="image">Image</label>
       <input
+        id="image"
         type="file"
         className="form-input"
         name="image"
@@ -118,7 +131,9 @@ function ProjectForm({ initialData = {}, onSubmit }) {
       />
       {errors.image && <p className="error-message">{errors.image[0]}</p>}
 
+      <label htmlFor="category">Select Category</label>
       <select
+        id="category"
         name="category"
         value={formData.category}
         className="form-input"
