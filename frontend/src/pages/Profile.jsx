@@ -22,23 +22,36 @@ const Profile = () => {
   });
   const [infoMsg, setInfoMsg] = useState("");
   const [passMsg, setPassMsg] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchUser() {
+      setLoading(true);
+      setError("");
       try {
         const userData = await getCurrentUser();
-        setUser(userData);
-        setEditInfo({
-          first_name: userData.first_name || "",
-          last_name: userData.last_name || "",
-          phone: userData.phone || ""
-        });
-        if (userData.is_superuser) {
-          const users = await getAllUsers();
-          setAllUsers(users.results ? users.results : users);
+        console.log("Fetched user:", userData);
+        if (!userData || !userData.email) {
+          setError("Failed to load user info or you are not logged in.");
+          setUser(null);
+        } else {
+          setUser(userData);
+          setEditInfo({
+            first_name: userData.first_name || "",
+            last_name: userData.last_name || "",
+            phone: userData.phone || ""
+          });
+          if (userData.is_superuser) {
+            const users = await getAllUsers();
+            setAllUsers(users.results ? users.results : users);
+          }
         }
-      } catch {
-        setInfoMsg("Failed to load user info");
+      } catch (e) {
+        setError("Failed to load user info or you are not logged in.");
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
     }
     fetchUser();
@@ -96,7 +109,13 @@ const Profile = () => {
     }
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return (
+    <div style={{textAlign: 'center', marginTop: '40px'}}>
+      <div style={{color: 'red', marginBottom: '16px'}}>{error}</div>
+      <a href="/login" style={{color: '#11998e', textDecoration: 'underline'}}>Go to Login</a>
+    </div>
+  );
 
   return (
     <main className="main">
@@ -165,6 +184,7 @@ const Profile = () => {
               <tr>
                 <th>Email</th>
                 <th>Name</th>
+                <th>Phone</th>
                 <th>Superuser</th>
               </tr>
             </thead>
@@ -173,6 +193,7 @@ const Profile = () => {
                 <tr key={u.id}>
                   <td>{u.email}</td>
                   <td>{u.first_name} {u.last_name}</td>
+                  <td>{u.phone}</td>
                   <td>{u.is_superuser ? "Yes" : "No"}</td>
                 </tr>
               ))}

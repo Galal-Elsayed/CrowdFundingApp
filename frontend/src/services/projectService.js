@@ -8,6 +8,9 @@ const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
+    "Cache-Control": "no-cache",
+    Pragma: "no-cache",
+    Expires: "0",
   },
 });
 
@@ -17,6 +20,9 @@ apiClient.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    // Always add cache-busting param
+    if (!config.params) config.params = {};
+    config.params._cb = Date.now();
     return config;
   },
   (error) => {
@@ -24,9 +30,9 @@ apiClient.interceptors.request.use(
   }
 );
 
-export const getProjects = async () => {
+export const getProjects = async (params) => {
   try {
-    const response = await apiClient.get("");
+    const response = await apiClient.get("", { params });
     return response.data;
   } catch (error) {
     console.error("Error fetching projects:", error);

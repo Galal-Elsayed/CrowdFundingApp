@@ -9,7 +9,6 @@ const Home = () => {
                 <h1 className="home-title">Your home<br/>for help</h1>
                 <button className="fund-btn" onClick={()=> navigate('/projects')}>Start fundraising</button>
                 <button className="donate-btn" onClick={()=> navigate('/donations')}>Donate Now!</button>
-
             </div>
         </main>
     );

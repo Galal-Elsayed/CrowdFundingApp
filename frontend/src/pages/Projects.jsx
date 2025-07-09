@@ -3,12 +3,20 @@ import { getProjects } from '../services/projectService';
 import ProjectCard from '../components/ProjectCard';
 import '../styles/Home.css';
 import { Link, useLocation } from "react-router-dom";
+import { getCurrentUser, getToken } from '../services/authService';
+import donationService from '../services/donationService';
 
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openDonationProjectId, setOpenDonationProjectId] = useState(null);
+  const [donationForm, setDonationForm] = useState({ amount: '', name: '', email: '' });
+  const [donationLoading, setDonationLoading] = useState(false);
+  const [donationError, setDonationError] = useState('');
+  const [donationNotification, setDonationNotification] = useState('');
+  const [user, setUser] = useState(null);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -32,9 +40,46 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-    const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(searchQuery)
-  );
+  useEffect(() => {
+    (async () => {
+      const u = await getCurrentUser();
+      setUser(u);
+    })();
+  }, []);
+
+  const handleDonate = async (e) => {
+    e.preventDefault();
+    setDonationLoading(true);
+    setDonationError('');
+    try {
+      const token = getToken();
+      const payload = {
+        project: openDonationProjectId,
+        amount: donationForm.amount,
+      };
+      if (!user) {
+        payload.name = donationForm.name;
+        payload.email = donationForm.email;
+      }
+      await donationService.createDonation(payload, token);
+      setDonationNotification('Thank you for your donation!');
+      setTimeout(async () => {
+        // Add cache-busting param
+        const data = await getProjects({ t: Date.now() });
+        setProjects(data);
+      }, 350);
+      setOpenDonationProjectId(null);
+      setDonationForm({ amount: '', name: '', email: '' });
+    } catch (err) {
+      setDonationError('Failed to donate. Please try again.');
+    } finally {
+      setDonationLoading(false);
+    }
+  };
+
+  const filteredProjects = projects
+    .filter((project) => project.title.toLowerCase().includes(searchQuery))
+    .filter((project) => Number(project.donated_amount) < Number(project.target_amount));
 
   if (loading) {
     return (
@@ -56,22 +101,52 @@ const Projects = () => {
   }
 
   return (
-    <div style={{
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "16px",
-      padding: "20px"
-    }}>
-      {projects.length > 0 ? (
-          filteredProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))
-      ) : (
-        <div style={{ textAlign: 'center', width: '100%' }}>
-          <p>No projects available at the moment</p>
+    <>
+      <div className="projects-grid projects-main">
+        {projects.length > 0 ? (
+            filteredProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              openDonationModal={() => setOpenDonationProjectId(project.id)}
+              disableDonate={openDonationProjectId !== null && openDonationProjectId !== project.id}
+            />
+          ))
+        ) : (
+          <div style={{ textAlign: 'center', width: '100%' }}>
+            <p>No projects available at the moment</p>
+          </div>
+        )}
+      </div>
+      {openDonationProjectId && (
+        <div className="modal-overlay" onClick={() => setOpenDonationProjectId(null)}>
+          <div className="modal-content transparent-modal" onClick={e => e.stopPropagation()}>
+            <form className="donation-form" onSubmit={handleDonate}>
+              <h2>Donate to this Campaign</h2>
+              <label>Amount (EGP):
+                <input type="number" min="1" value={donationForm.amount} onChange={e => setDonationForm(f => ({ ...f, amount: e.target.value }))} required />
+              </label>
+              {!user && (
+                <>
+                  <label>Name:
+                    <input type="text" value={donationForm.name} onChange={e => setDonationForm(f => ({ ...f, name: e.target.value }))} required />
+                  </label>
+                  <label>Email:
+                    <input type="email" value={donationForm.email} onChange={e => setDonationForm(f => ({ ...f, email: e.target.value }))} required />
+                  </label>
+                </>
+              )}
+              {donationError && <div className="error">{donationError}</div>}
+              <div className="form-actions">
+                <button type="submit" disabled={donationLoading}>{donationLoading ? "Donating..." : "Donate"}</button>
+                <button type="button" onClick={() => setOpenDonationProjectId(null)}>Cancel</button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
-    </div>
+      {donationNotification && <div className="donation-notification">{donationNotification}</div>}
+    </>
   );
 
 };

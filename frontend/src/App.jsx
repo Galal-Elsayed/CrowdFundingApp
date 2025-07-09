@@ -18,6 +18,7 @@ import ProjectDetails from "./pages/ProjectDetails";
 import CreateProject from "./pages/CreateProject";
 import EditProject from "./pages/EditProject";
 import ContactUs from "./pages/ContactUs";
+import Donations from "./pages/Donations";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,7 +60,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/donations" element={<h1>Donations Page</h1>} />
+            <Route path="/donations" element={<Donations />} />
             <Route
               path="/login"
               element={<Login setIsLoggedIn={setIsLoggedIn} />}
