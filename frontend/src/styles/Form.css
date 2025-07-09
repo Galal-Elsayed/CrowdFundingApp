@@ -132,3 +132,44 @@
     font-size: 1.3ch;
   }
 }
+
+.form-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 500px;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-popup .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.form-popup input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.form-popup button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-popup button[type="button"] {
+  background-color: #f44336;
+}
