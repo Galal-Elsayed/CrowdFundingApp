@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; 
 import "../styles/ProjectCard.css";
 import donationService from "../services/donationService";
-import { login, getCurrentUser, getToken, logout, changePassword } from "../services/authService";
+import { deleteProject } from "../services/projectService";
+import { getCurrentUser, getToken } from "../services/authService";
 
-const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
+const ProjectCard = ({
+  project,
+  openDonationModal,
+  disableDonate,
+  onProjectDeleted,
+}) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [donated, setDonated] = useState(project.donated_amount || 0);
   const [notification, setNotification] = useState("");
@@ -12,6 +19,10 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
   const [loadingDonations, setLoadingDonations] = useState(false);
   const [donationsError, setDonationsError] = useState("");
   const [user, setUser] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     (async () => {
@@ -44,11 +55,11 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
   const shouldShowReadMore =
     project.description && project.description.length > 100;
 
-  // Progress bar calculation
+  const isOwner = user && project.created_by?.email === user.email;
+
   const goal = parseFloat(project.target_amount);
   const progress = Math.min((donated / goal) * 100, 100);
 
-  // Donation form state
   const [amount, setAmount] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -70,10 +81,9 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
         payload.email = email;
       }
       await donationService.createDonation(payload, token);
-      setDonated(prev => parseFloat(prev) + parseFloat(amount));
+      setDonated((prev) => parseFloat(prev) + parseFloat(amount));
       setNotification("Thank you for your donation!");
       setTimeout(() => setNotification(""), 2000);
-      // closeDonationModal(); // Removed as per edit hint
       setAmount("");
       setName("");
       setEmail("");
@@ -82,6 +92,39 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit-project/${project.id}`);
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteConfirm(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    setDeleting(true);
+    try {
+      const token = getToken();
+      await deleteProject(project.id, token);
+      setNotification("Project deleted successfully!");
+      setTimeout(() => {
+        setNotification("");
+        if (onProjectDeleted) {
+          onProjectDeleted(project.id);
+        }
+      }, 1500);
+    } catch (error) {
+      setNotification("Failed to delete project. Please try again.");
+      setTimeout(() => setNotification(""), 3000);
+    } finally {
+      setDeleting(false);
+      setShowDeleteConfirm(false);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirm(false);
   };
 
   const fetchDonations = async () => {
@@ -102,7 +145,6 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
     if (showDonationsModal) {
       fetchDonations();
     }
-    // eslint-disable-next-line
   }, [showDonationsModal]);
 
   return (
@@ -123,6 +165,10 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
       </div>
 
       <h3>{project.title}</h3>
+
+      <p className="created-by">
+        Created by: {project.created_by?.email || "Unknown"}
+      </p>
 
       <div className="description-container">
         <p>
@@ -149,9 +195,7 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
         </div>
         <div className="info-row">
           <span className="info-label">Ends in:</span>
-          <span className="info-value">
-            {getDaysRemaining(project.end_date)} days
-          </span>
+          <span className="info-value">{getDaysRemaining(project.end_date)} days</span>
         </div>
         <div className="date-range">
           From {formatDate(project.start_date)} to {formatDate(project.end_date)}
@@ -164,15 +208,76 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
         </div>
       </div>
 
-      <button className="view-donations-btn" onClick={() => setShowDonationsModal(true)}>
+      <button
+        className="view-donations-btn"
+        onClick={() => setShowDonationsModal(true)}
+      >
         View Donations
       </button>
 
-      {/* Removed all modal and form code from this file */}
-      {notification && <div className="donation-notification">{notification}</div>}
+      {isOwner && (
+        <div className="owner-actions">
+          <button
+            className="edit-btn"
+            onClick={handleEdit}
+            disabled={deleting}
+          >
+            Edit
+          </button>
+          <button
+            className="delete-btn"
+            onClick={handleDeleteClick}
+            disabled={deleting}
+          >
+            {deleting ? "Deleting..." : "Delete"}
+          </button>
+        </div>
+      )}
+
+      {notification && (
+        <div className="donation-notification">{notification}</div>
+      )}
+
+      {showDeleteConfirm && (
+        <div className="modal-overlay" onClick={handleDeleteCancel}>
+          <div
+            className="modal-content confirm-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Confirm Delete</h2>
+            <p>
+              Are you sure you want to delete this project? This action cannot
+              be undone.
+            </p>
+            <div className="confirm-actions">
+              <button
+                className="confirm-btn"
+                onClick={handleDeleteConfirm}
+                disabled={deleting}
+              >
+                {deleting ? "Deleting..." : "Yes, Delete"}
+              </button>
+              <button
+                className="cancel-btn"
+                onClick={handleDeleteCancel}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showDonationsModal && (
-        <div className="modal-overlay" onClick={() => setShowDonationsModal(false)}>
-          <div className="modal-content transparent-modal" onClick={e => e.stopPropagation()}>
+        <div
+          className="modal-overlay"
+          onClick={() => setShowDonationsModal(false)}
+        >
+          <div
+            className="modal-content transparent-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h2>Recent Donations</h2>
             {loadingDonations ? (
               <p>Loading...</p>
@@ -182,14 +287,18 @@ const ProjectCard = ({ project, openDonationModal, disableDonate }) => {
               <p>No donations yet.</p>
             ) : (
               <ul className="donations-list">
-                {donations.map(d => (
+                {donations.map((d) => (
                   <li key={d.id}>
-                    <strong>{d.donor_name}</strong> ({d.donor_email}) donated <strong>{d.amount} EGP</strong> on {new Date(d.donated_at).toLocaleString()}
+                    <strong>{d.donor_name}</strong> ({d.donor_email}) donated{" "}
+                    <strong>{d.amount} EGP</strong> on{" "}
+                    {new Date(d.donated_at).toLocaleString()}
                   </li>
                 ))}
               </ul>
             )}
-            <button onClick={() => setShowDonationsModal(false)}>Close</button>
+            <button onClick={() => setShowDonationsModal(false)}>
+              Close
+            </button>
           </div>
         </div>
       )}
