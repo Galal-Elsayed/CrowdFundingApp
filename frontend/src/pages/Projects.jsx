@@ -57,7 +57,11 @@ const Projects = () => {
         project: openDonationProjectId,
         amount: donationForm.amount,
       };
-      if (!user) {
+      if (user) {
+        payload.donor = user.id;        
+        payload.name = user.name;
+        payload.email = user.email;
+      } else {
         payload.name = donationForm.name;
         payload.email = donationForm.email;
       }

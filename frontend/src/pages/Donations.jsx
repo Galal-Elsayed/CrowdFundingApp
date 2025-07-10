@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getProjects } from '../services/projectService';
 import donationService from '../services/donationService';
 import '../styles/Home.css';
+import '../styles/Donations.css';
+
 
 const Donations = () => {
   const [projects, setProjects] = useState([]);
@@ -52,7 +54,7 @@ const Donations = () => {
   return (
     <main className="main">
       <div className="donations-container">
-        <form onSubmit={handleSubmit} style={{ marginBottom: 32, background: '#fff', padding: 24, borderRadius: 8, maxWidth: 400 }}>
+        <form onSubmit={handleSubmit} className="donation-form">
           <h2>Donate to a Campaign</h2>
           <label>Campaign:
             <select value={selectedProject} onChange={e => setSelectedProject(e.target.value)} required>
@@ -77,7 +79,7 @@ const Donations = () => {
           {success && <div className="success">{success}</div>}
           <button type="submit" disabled={loading}>{loading ? 'Donating...' : 'Donate'}</button>
         </form>
-        <div style={{ background: '#fff', padding: 24, borderRadius: 8, maxWidth: 700, margin: '0 auto' }}>
+        <div className="donation-log">
           <h2>Donation Log</h2>
           <ul style={{ maxHeight: 300, overflowY: 'auto', padding: 0, listStyle: 'none' }}>
             {donations.length === 0 ? <li>No donations yet.</li> : donations
