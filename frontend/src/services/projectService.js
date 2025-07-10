@@ -63,7 +63,7 @@ export const createProject = async (data) => {
       }
     }
 
-    formData.append("created_by", userId);
+    // formData.append("created_by", userId);
 
     const response = await apiClient.post("", formData, {
       headers: {
@@ -73,6 +73,7 @@ export const createProject = async (data) => {
     });
     return response.data;
   } catch (error) {
+    console.error("Error creating project:", error.response?.data || error.message);
     console.error("Error creating project:", error);
     throw error;
   }
@@ -95,6 +96,20 @@ export const updateProject = async (id, data) => {
     },
   });
   return response.data;
+};
+
+export const deleteProject = async (id, token) => {
+  try {
+    const response = await apiClient.delete(`${id}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting project:", error);
+    throw error;
+  }
 };
 
 export const fetchCategories = async () => {
