@@ -114,12 +114,3 @@ export const deleteProject = async (id, token) => {
     throw error;
   }
 };
-
-export const fetchCategories = async () => {
-  try {
-    const response = await apiClient.get("http://127.0.0.1:8000/categories/");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-  }
-};

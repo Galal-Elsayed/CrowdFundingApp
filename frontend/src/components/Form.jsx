@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "../styles/Form.css";
-import { fetchCategories } from "../services/projectService";
 import { useNavigate } from "react-router-dom";
 
 function ProjectForm({ initialData = {}, onSubmit }) {
@@ -10,11 +9,9 @@ function ProjectForm({ initialData = {}, onSubmit }) {
     target_amount: "",
     start_date: "",
     end_date: "",
-    category: "",
     image: null,
     ...initialData,
   });
-  const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
@@ -39,31 +36,22 @@ function ProjectForm({ initialData = {}, onSubmit }) {
   };
 
   useEffect(() => {
-    if (!initialData) return;
-
-    const normalizeDate = (date) => {
-      if (!date) return "";
-      return new Date(date).toISOString().split("T")[0];
-    };
-
-    setFormData((prev) => ({
-      ...prev,
-      ...initialData,
-      start_date: normalizeDate(initialData.start_date),
-      end_date: normalizeDate(initialData.end_date),
-    }));
-
-    const fetchData = async () => {
-      try {
-        const data = await fetchCategories();
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    // Only update formData if initialData is not empty and has changed
+    if (initialData && Object.keys(initialData).length > 0) {
+      const normalizeDate = (date) => {
+        if (!date) return "";
+        // If already in yyyy-mm-dd format, return as is
+        if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+        return new Date(date).toISOString().split("T")[0];
+      };
+      setFormData((prev) => ({
+        ...prev,
+        ...initialData,
+        start_date: normalizeDate(initialData.start_date),
+        end_date: normalizeDate(initialData.end_date),
+      }));
+    }
+  }, [initialData]);
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
@@ -140,22 +128,6 @@ function ProjectForm({ initialData = {}, onSubmit }) {
         onChange={handleChange}
       />
       {errors.image && <p className="error-message">{errors.image[0]}</p>}
-
-      <label htmlFor="category">Select Category</label>
-      <select
-        id="category"
-        name="category"
-        value={formData.category}
-        className="form-input"
-        onChange={handleChange}
-      >
-        <option value="">Select Category</option>
-        {categories?.map((cat) => (
-          <option key={cat.id} value={cat.id}>
-            {cat.name}
-          </option>
-        ))}
-      </select>
 
       <button className="form-button" type="submit">
         Save

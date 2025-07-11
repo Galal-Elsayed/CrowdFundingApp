@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
                 ('target_amount', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('start_date', models.DateTimeField()),
                 ('end_date', models.DateTimeField()),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='categories.category')),
             ],
         ),
     ]
