@@ -41,6 +41,14 @@
   resize: none;
 }
 
+.preview-image img {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+
 .form-button {
   padding: 10px;
   background-color: #11998e;

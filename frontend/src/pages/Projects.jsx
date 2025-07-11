@@ -17,6 +17,7 @@ const Projects = () => {
   const [donationError, setDonationError] = useState('');
   const [donationNotification, setDonationNotification] = useState('');
   const [user, setUser] = useState(null);
+  const [openDropdownId, setOpenDropdownId] = useState(null);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -114,6 +115,8 @@ const Projects = () => {
               project={project}
               openDonationModal={() => setOpenDonationProjectId(project.id)}
               disableDonate={openDonationProjectId !== null && openDonationProjectId !== project.id}
+              openDropdownId={openDropdownId}
+              setOpenDropdownId={setOpenDropdownId}
             />
           ))
         ) : (

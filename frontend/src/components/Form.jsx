@@ -21,11 +21,12 @@ function ProjectForm({ initialData = {}, onSubmit }) {
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "file" ? files[0] : value,
-    }));
-  };
+    if (name === "image" && files.length > 0) {
+      setFormData((prev) => ({ ...prev, image: files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,6 +123,15 @@ function ProjectForm({ initialData = {}, onSubmit }) {
       />
 
       <label htmlFor="image">Image</label>
+      {formData.image && typeof formData.image === "string" && (
+        <div className="preview-image">
+          <img
+            src={formData.image}
+            alt="Preview"
+            style={{ maxWidth: "100%", marginBottom: "10px" }}
+          />
+        </div>
+      )}
       <input
         id="image"
         type="file"

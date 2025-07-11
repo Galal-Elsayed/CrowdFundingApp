@@ -84,6 +84,9 @@ export const updateProject = async (id, data) => {
 
   const formData = new FormData();
   for (const key in data) {
+    if (key === "image" && (data[key] === null || typeof data[key] === "string")) {
+      continue;
+    }
     if (data[key] !== undefined && data[key] !== null) {
       formData.append(key, data[key]);
     }

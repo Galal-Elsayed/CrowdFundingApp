@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom"; 
 import "../styles/ProjectCard.css";
 import donationService from "../services/donationService";
 import { deleteProject } from "../services/projectService";
 import { getCurrentUser, getToken } from "../services/authService";
+import { FaChevronDown } from "react-icons/fa";
 
 const ProjectCard = ({
   project,
   openDonationModal,
   disableDonate,
   onProjectDeleted,
+  openDropdownId,
+  setOpenDropdownId,
 }) => {
+  const isDropdownOpen = openDropdownId === project.id;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [donated, setDonated] = useState(project.donated_amount || 0);
   const [notification, setNotification] = useState("");
@@ -21,9 +25,7 @@ const ProjectCard = ({
   const [user, setUser] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
-
   const navigate = useNavigate(); 
-
   useEffect(() => {
     (async () => {
       const u = await getCurrentUser();
@@ -147,8 +149,45 @@ const ProjectCard = ({
     }
   }, [showDonationsModal]);
 
+useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (!e.target.closest(".dropdown-wrapper")) {
+      setOpenDropdownId(null);
+    }
+  };
+
+  document.addEventListener("click", handleClickOutside);
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, [setOpenDropdownId]);
+
+
   return (
     <div className="project-card">
+      {isOwner && (
+  <div className="dropdown-wrapper">
+    <div className="dropdown-container">
+      <button
+        className="dropdown-toggle"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpenDropdownId(openDropdownId === project.id ? null : project.id);
+        }}
+      >
+        <FaChevronDown />
+      </button>
+
+      {openDropdownId === project.id && (
+        <div className="dropdown-menu-actions">
+          <button className="edit-btn" onClick={handleEdit}>Edit</button>
+          <button className="delete-btn" onClick={handleDeleteClick}>Delete</button>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
       <div className="image-container">
         {project.image ? (
           <img src={`${project.image}`} alt={project.title} />
@@ -214,25 +253,6 @@ const ProjectCard = ({
       >
         View Donations
       </button>
-
-      {isOwner && (
-        <div className="owner-actions">
-          <button
-            className="edit-btn"
-            onClick={handleEdit}
-            disabled={deleting}
-          >
-            Edit
-          </button>
-          <button
-            className="delete-btn"
-            onClick={handleDeleteClick}
-            disabled={deleting}
-          >
-            {deleting ? "Deleting..." : "Delete"}
-          </button>
-        </div>
-      )}
 
       {notification && (
         <div className="donation-notification">{notification}</div>
