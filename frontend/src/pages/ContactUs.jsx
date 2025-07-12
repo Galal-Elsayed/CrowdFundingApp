@@ -35,42 +35,42 @@ const ContactUs = () => {
   return (
     <div className="e-form-container">
       <form ref={form} onSubmit={sendEmail}>
-        <label for="exampleFormControlInput1" class="form-label mt-2">
+        <label htmlFor="exampleFormControlInput1" className="form-label mt-2">
           Name
         </label>
         <input
           type="text"
           name="user_name"
-          class="form-control"
+          className="form-control"
           id="exampleFormControlInput1"
           placeholder="John Doe"
         />
-        <label for="exampleFormControlInput1" class="form-label mt-2">
+        <label htmlFor="exampleFormControlInput1" className="form-label mt-2">
           E-mail
         </label>
         <input
           type="email"
           name="user_email"
-          class="form-control"
+          className="form-control"
           id="exampleFormControlInput1"
           placeholder="John@email.com"
         />
-        <label for="exampleFormControlInput1" class="form-label mt-2">
+        <label htmlFor="exampleFormControlInput1" className="form-label mt-2">
           Subject
         </label>
         <input
           type="text"
           name="subject"
-          class="form-control"
+          className="form-control"
           id="exampleFormControlInput1"
           placeholder="Regarding the ...... campaign"
         />
-        <label for="exampleFormControlTextarea1" class="form-label mt-2">
+        <label htmlFor="exampleFormControlTextarea1" className="form-label mt-2">
           Message
         </label>
         <textarea
           name="message"
-          class="form-control mb-3"
+          className="form-control mb-3"
           id="exampleFormControlTextarea1"
           rows="3"
         />
